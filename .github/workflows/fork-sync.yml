@@ -1,0 +1,20 @@
+name: Fork Auto Sync
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # every 5 minutes
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - uses: repo-sync/github-sync@v2.3.0
+        with:
+          source_repo: tentin-quarantino/wykop-the-best-style
+          source_branch: main
+          destination_branch: quarantino
+          github_token: ${{ secrets.PAT }}
